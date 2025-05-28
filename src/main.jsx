@@ -23,39 +23,50 @@ const App = () => {
   const [error, setError] = useState('')
 
   useEffect(() => {
-    if (window.Telegram && window.Telegram.WebApp) {
-      window.Telegram.WebApp.ready()
-      window.Telegram.WebApp.expand()
+    const tg = window.Telegram?.WebApp
+    if (tg) {
+      tg.ready()
+      tg.expand()
     } else {
       console.warn("Telegram WebApp API не найден.")
     }
   }, [])
 
   const handleSubmit = () => {
-    if (typeof window.Telegram === "undefined" || typeof window.Telegram.WebApp === "undefined") {
-      alert("Ошибка: Telegram WebApp API не загружен. Перезапустите миниапп через Telegram.")
+    const tg = window.Telegram?.WebApp
+
+    if (!tg) {
+      alert("Ошибка: Telegram WebApp API не загружен. Перезапусти миниапп через Telegram.")
       return
     }
 
     if (!mood || !taste) {
-      setError('Выбери настроение и вкус 🍽')
+      setError('Пожалуйста, выбери настроение и вкус.')
       return
     }
 
     const data = {
       mood,
       taste,
-      time: new Date().toLocaleTimeString('ru-RU', { hour: '2-digit', minute: '2-digit' })
+      time: new Date().toLocaleTimeString('ru-RU', {
+        hour: '2-digit',
+        minute: '2-digit'
+      })
     }
 
-    window.Telegram.WebApp.sendData(JSON.stringify(data))
-    window.Telegram.WebApp.close()
+    try {
+      tg.sendData(JSON.stringify(data))
+      tg.close()
+    } catch (err) {
+      console.error("Ошибка при отправке:", err)
+      alert("Не удалось отправить данные.")
+    }
   }
 
   return (
     <div className="app">
       <h1 className="title">Ассистент ресторана</h1>
-      <p className="subtitle">Подберём блюдо под твоё настроение</p>
+      <p className="subtitle">Подберём блюдо под настроение</p>
 
       <select onChange={(e) => setMood(e.target.value)} value={mood}>
         <option value="">Настроение...</option>
