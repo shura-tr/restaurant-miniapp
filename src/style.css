@@ -1,7 +1,8 @@
 body {
   margin: 0;
+  padding: 0;
   font-family: 'Segoe UI', 'Roboto', sans-serif;
-  background: linear-gradient(to right, #ffe0c3, #ffb997);
+  background: linear-gradient(to bottom right, #fff0f5, #fce3d4);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -9,70 +10,74 @@ body {
 }
 
 .app {
-  background: #fff;
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(16px);
+  border-radius: 1.5rem;
   padding: 2rem;
-  border-radius: 1rem;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
   width: 90%;
-  max-width: 420px;
+  max-width: 400px;
   text-align: center;
-  animation: fadeIn 0.4s ease-in-out;
+  animation: fadeIn 0.6s ease-in-out;
 }
 
-h1 {
-  margin-bottom: 0.5rem;
-  font-size: 1.6rem;
-  color: #2c3e50;
+h1.title {
+  margin-bottom: 0.3rem;
+  font-size: 1.7rem;
+  color: #333;
 }
 
-p {
-  margin-bottom: 1rem;
-  color: #555;
+.subtitle {
+  margin-bottom: 1.2rem;
+  font-size: 14px;
+  color: #777;
 }
 
 select {
   width: 100%;
   padding: 12px;
-  margin-bottom: 1rem;
-  border: 1px solid #ccc;
-  border-radius: 0.6rem;
-  background: #fafafa;
-  font-size: 16px;
+  margin: 0.6rem 0;
+  font-size: 15px;
+  border-radius: 10px;
+  border: 1px solid #ddd;
+  background: #fff;
   appearance: none;
-  transition: border 0.2s ease;
+  transition: border 0.3s ease;
 }
 
 select:focus {
+  border-color: #e9a66e;
   outline: none;
-  border-color: #e67e22;
 }
 
 button {
   width: 100%;
-  padding: 12px;
-  background: #e67e22;
+  padding: 13px;
+  margin-top: 1rem;
+  background: #ee9f6e;
   border: none;
-  border-radius: 0.8rem;
+  border-radius: 12px;
   color: white;
-  font-size: 16px;
+  font-size: 15px;
+  font-weight: 500;
   cursor: pointer;
-  transition: background 0.3s ease;
+  transition: background 0.25s ease;
 }
 
 button:hover {
-  background: #cf711f;
+  background: #e78a51;
 }
 
 .error {
   color: crimson;
-  margin-bottom: 1rem;
-  font-size: 14px;
+  font-size: 13px;
+  margin-top: 0.5rem;
 }
 
 @keyframes fadeIn {
   from {
     opacity: 0;
-    transform: translateY(12px);
+    transform: translateY(8px);
   }
   to {
     opacity: 1;

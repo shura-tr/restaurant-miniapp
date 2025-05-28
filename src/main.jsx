@@ -31,12 +31,12 @@ const App = () => {
 
   const handleSubmit = () => {
     if (!window.Telegram || !window.Telegram.WebApp) {
-      alert("Telegram WebApp API недоступен")
+      alert("Пожалуйста, открой миниапп через Telegram")
       return
     }
 
     if (!mood || !taste) {
-      setError('Пожалуйста, выбери настроение и вкус')
+      setError('Выбери настроение и вкус 🍽')
       return
     }
 
@@ -52,8 +52,8 @@ const App = () => {
 
   return (
     <div className="app">
-      <h1>Ресторанный ассистент</h1>
-      <p>Выберите настроение и вкус</p>
+      <h1 className="title">Ассистент ресторана</h1>
+      <p className="subtitle">Подберём блюдо под твоё настроение</p>
 
       <select onChange={(e) => setMood(e.target.value)} value={mood}>
         <option value="">Настроение...</option>
@@ -71,7 +71,7 @@ const App = () => {
 
       {error && <p className="error">{error}</p>}
 
-      <button onClick={handleSubmit}>Подобрать блюдо</button>
+      <button onClick={handleSubmit}>✨ Подобрать блюдо</button>
     </div>
   )
 }
