@@ -30,6 +30,11 @@ const App = () => {
   }, [])
 
   const handleSubmit = () => {
+    if (!window.Telegram || !window.Telegram.WebApp) {
+      alert("Telegram WebApp API недоступен")
+      return
+    }
+
     if (!mood || !taste) {
       setError('Пожалуйста, выбери настроение и вкус')
       return
@@ -41,7 +46,9 @@ const App = () => {
       time: new Date().toLocaleTimeString('ru-RU', { hour: '2-digit', minute: '2-digit' })
     }
 
-    window.Telegram.WebApp  }
+    window.Telegram.WebApp.sendData(JSON.stringify(data))
+    window.Telegram.WebApp.close()
+  }
 
   return (
     <div className="app">
@@ -70,4 +77,3 @@ const App = () => {
 }
 
 ReactDOM.createRoot(document.getElementById('root')).render(<App />)
-
