@@ -23,6 +23,7 @@ const App = () => {
   const [error, setError] = useState('')
 
   useEffect(() => {
+    console.log("Telegram API:", window.Telegram?.WebApp)
     if (window.Telegram?.WebApp) {
       window.Telegram.WebApp.ready()
       window.Telegram.WebApp.expand()
@@ -30,11 +31,6 @@ const App = () => {
   }, [])
 
   const handleSubmit = () => {
-    if (!window.Telegram || !window.Telegram.WebApp) {
-      alert("Пожалуйста, открой миниапп через Telegram")
-      return
-    }
-
     if (!mood || !taste) {
       setError('Выбери настроение и вкус 🍽')
       return
@@ -46,8 +42,12 @@ const App = () => {
       time: new Date().toLocaleTimeString('ru-RU', { hour: '2-digit', minute: '2-digit' })
     }
 
-    window.Telegram.WebApp.sendData(JSON.stringify(data))
-    window.Telegram.WebApp.close()
+    try {
+      window.Telegram.WebApp.sendData(JSON.stringify(data))
+      window.Telegram.WebApp.close()
+    } catch (e) {
+      alert("Ошибка при отправке: " + e.message)
+    }
   }
 
   return (
