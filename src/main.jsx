@@ -23,14 +23,20 @@ const App = () => {
   const [error, setError] = useState('')
 
   useEffect(() => {
-    console.log("Telegram API:", window.Telegram?.WebApp)
-    if (window.Telegram?.WebApp) {
+    if (window.Telegram && window.Telegram.WebApp) {
       window.Telegram.WebApp.ready()
       window.Telegram.WebApp.expand()
+    } else {
+      console.warn("Telegram WebApp API не найден.")
     }
   }, [])
 
   const handleSubmit = () => {
+    if (typeof window.Telegram === "undefined" || typeof window.Telegram.WebApp === "undefined") {
+      alert("Ошибка: Telegram WebApp API не загружен. Перезапустите миниапп через Telegram.")
+      return
+    }
+
     if (!mood || !taste) {
       setError('Выбери настроение и вкус 🍽')
       return
@@ -42,12 +48,8 @@ const App = () => {
       time: new Date().toLocaleTimeString('ru-RU', { hour: '2-digit', minute: '2-digit' })
     }
 
-    try {
-      window.Telegram.WebApp.sendData(JSON.stringify(data))
-      window.Telegram.WebApp.close()
-    } catch (e) {
-      alert("Ошибка при отправке: " + e.message)
-    }
+    window.Telegram.WebApp.sendData(JSON.stringify(data))
+    window.Telegram.WebApp.close()
   }
 
   return (
